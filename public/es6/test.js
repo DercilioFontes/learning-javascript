@@ -3,17 +3,17 @@
 
 // es6 feature: block-scoped "let" declaration
 const sentences = [
-  { subject: 'The book', verb: 'is', object: 'on the table' },
-  { subject: 'Rats', verb: 'are', object: 'small' }
+	{ subject: 'The book', verb: 'is', object: 'on the table' },
+	{ subject: 'Rats', verb: 'are', object: 'small' }
 ];
 
 // es6 feature: object destructuring
 function say({ subject, verb, object}) {
-  // es6 feature: template strings
-  console.log(`${subject} ${verb} ${object}`);
+	// es6 feature: template strings
+	console.log(`${subject} ${verb} ${object}`);
 }
 
 // es6 feature: for..of
 for (let s of sentences) {
-  say(s);
+	say(s);
 }
