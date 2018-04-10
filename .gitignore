@@ -11,3 +11,7 @@ node_modules
 # temporary files
 *.tmp
 *~
+
+# ES5 folders
+dist
+public/dist
