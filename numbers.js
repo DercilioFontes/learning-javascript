@@ -24,7 +24,7 @@ const inf = Infinity;
 
 const ninf = -Infinity;
 
-const nan = NaN;
+const nan1 = NaN;
 
 
 /* 
@@ -38,7 +38,7 @@ const small = Number.EPSILON;
 const bigInt = Number.MAX_SAFE_INTEGER;
 
 // the largest representable number
-conts max = Number.MAX_VALUE;
+const max = Number.MAX_VALUE;
 
 // the smallest representable integer
 const minInt = Number.MIN_SAFE_INTEGER;
@@ -50,7 +50,7 @@ const min = Number.MIN_VALUE;
 const nInf = Number.NEGATIVE_INFINITY;
 
 // the same as NaN
-const nan = Number.NaN;
+const nan2 = Number.NaN;
 
 // the same as Infinity
-const inf = Number.POSITIVE_INFINITY;
+const inF = Number.POSITIVE_INFINITY;
