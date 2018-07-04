@@ -1,0 +1,96 @@
+
+function countdown(seconds) {
+  return new Promise(function(resolve, reject) {
+    for(let i=seconds; i>=0; i--) {
+      setTimeout(function() {
+        if(i===13) return reject(new Error("DEFINITELY NOT COUNTING THAT"));
+        if(i>0) console.log(i + '...');
+        else resolve(console.log("GO!"));
+      }, (seconds-i)*1000);
+    }
+  });
+}
+
+// countdown(5);
+
+/*
+5...
+4...
+3...
+2...
+1...
+GO!
+*/
+
+// countdown(5).then(
+//   function() {
+//     console.log("countdown completed successfully");
+//   },
+//   function(err) {
+//     console.log("countdown experienced an error: " + err.message);
+//   }
+// );
+
+/*
+5...
+4...
+3...
+2...
+1...
+GO!
+countdown completed successfully
+*/
+
+// const p = countdown(5);
+
+// p.then(function() {
+//   console.log("countdown completed successfully");
+// });
+// p.catch(function(err) {
+//   console.log("countdown experienced an error: " + err.message);
+// });
+
+/*
+5...
+4...
+3...
+2...
+1...
+GO!
+countdown completed successfully
+*/
+
+const p = countdown(15);
+
+p.then(function() {
+  console.log("countdown completed successfully");
+});
+p.catch(function(err) {
+  console.log("countdown experienced an error: " + err.message);
+});
+
+/*
+15...
+14...
+countdown experienced an error: DEFINITELY NOT COUNTING THAT
+(node:28812) UnhandledPromiseRejectionWarning: Error: DEFINITELY NOT COUNTING THAT
+    at Timeout._onTimeout (/Users/derciliofontes/coding/learning-javascript/chapter-14-async-programming/promises.js:6:34)
+    at ontimeout (timers.js:498:11)
+    at tryOnTimeout (timers.js:323:5)
+    at Timer.listOnTimeout (timers.js:290:5)
+(node:28812) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). (rejection id: 1)
+(node:28812) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+12...
+11...
+10...
+9...
+8...
+7...
+6...
+5...
+4...
+3...
+2...
+1...
+GO!
+*/
