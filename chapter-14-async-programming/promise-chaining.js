@@ -31,6 +31,7 @@ class Countdown extends EventEmitter {
 
 function launch() {
   return new Promise(function(resolve, reject) {
+    if(Math.random() < 0.5) return;
     console.log("Lift off!");
     setTimeout(function() {
       resolve("In orbit!");
@@ -38,17 +39,36 @@ function launch() {
   });
 }
 
-// const c = new Countdown(5)
-//   .on('tick', i => console.log(i + '...'));
+function addTimeout(fn, timeout) {
+  if(timeout === undefined) timeout = 1000;
+  return function(...args) {
+    return new Promise(function(resolve, reject) {
+      const tid = setTimeout(reject, timeout,
+        new Error("promise timed out"));
+      fn(...args)
+        .then(function(...args) {
+          clearTimeout(tid);
+          resolve(...args);
+        })
+        .catch(function(...args) {
+          clearTimeout(tid);
+          reject(...args);
+        });
+    });
+  };
+}
 
-// c.go()
-//   .then(launch)
-//   .then(function(msg) {
-//     console.log(msg);
-//   })
-//   .catch(function(err) {
-//     console.error("Houston, we have a problem...");
-//   });
+const c = new Countdown(5)
+  .on('tick', i => console.log(i + '...'));
+
+c.go()
+  .then(addTimeout(launch, 4*1000))
+  .then(function(msg) {
+    console.log(msg);
+  })
+  .catch(function(err) {
+    console.error("Houston, we have a problem: " + err.message);
+  });
 
 /*
 5...
@@ -59,19 +79,29 @@ function launch() {
 0...
 Lift off!
 In orbit!
+
+OR
+
+5...
+4...
+3...
+2...
+1...
+0...
+Houston, we have a problem: promise timed out
 */
 
-const c = new Countdown(15, true)
-  .on('tick', i => console.log(i + '...'));
+// const c = new Countdown(15, true)
+//   .on('tick', i => console.log(i + '...'));
 
-c.go()
-  .then(launch)
-  .then(function(msg) {
-    console.log(msg);
-  })
-  .catch(function(err) {
-    console.error("Houston, we have a problem...");
-  });
+// c.go()
+//   .then(launch)
+//   .then(function(msg) {
+//     console.log(msg);
+//   })
+//   .catch(function(err) {
+//     console.error("Houston, we have a problem...");
+//   });
 
 /*
 15...
